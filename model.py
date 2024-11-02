@@ -24,7 +24,6 @@ class SubredditEmailKeywords(BaseModel):
     subreddit_name: str
     individual_subreddits: List[IndividualSubredditKeywords]
 
-
 class RedditPost(BaseModel):
     title: str
     url: str
@@ -33,10 +32,12 @@ class RedditPost(BaseModel):
     post_id: str
     created_utc: datetime
  
-
 class KeywordResult(BaseModel):
     posts: List[RedditPost]
 
 class RedditSearchResult(BaseModel):
     result: Dict[str, Dict[str, KeywordResult]]
 
+class SendEmail(BaseModel):
+    email: EmailStr
+    posts: List[RedditPost]
