@@ -1,6 +1,6 @@
 from db import MongoDB
 from typing import List
-from model import Subreddit, SubredditKeywords, SubredditEmailKeywords, IndividualSubredditKeywords
+from model import Subreddit, SubredditEmailKeywords, IndividualSubredditKeywords, SubredditKeywords
 
 db = MongoDB()
 
@@ -11,8 +11,6 @@ class SubredditManager:
         await db.connect_to_database()
         subreddits = await db.get_subreddits()
         await db.close_database_connection()
-        await self.map_subreddits_keywords(subreddits)
-        await self.map_subreddits_to_email_keywords(subreddits)
         return subreddits
     
     async def map_subreddits_keywords(self, subreddits: List[Subreddit]) -> List[SubredditKeywords]:
@@ -29,7 +27,7 @@ class SubredditManager:
             SubredditKeywords(subreddit_name=k, keywords=list(v))
             for k, v in subreddits_dict.items()
         ]
-        print(subreddit_keywords_list)
+        # print(subreddit_keywords_list)
         return subreddit_keywords_list
     
     async def map_subreddits_to_email_keywords(self, subreddits: List[Subreddit]) -> SubredditEmailKeywords:
@@ -57,7 +55,7 @@ class SubredditManager:
         for k, v in email_keywords_dict.items():
             subreddit_email_keywords_list.append(SubredditEmailKeywords(subreddit_name=k, individual_subreddits=v))
 
-        print(subreddit_email_keywords_list)
+        # print(subreddit_email_keywords_list)
         return subreddits_dict
 
 

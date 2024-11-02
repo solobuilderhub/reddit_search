@@ -10,6 +10,9 @@ class Subreddit(BaseModel):
     subreddit_name: str
     keyword: List[str]
 
+class SubredditKeywords(BaseModel):
+    subreddit_name: str
+    keywords: List[str]
 
 
 class IndividualSubredditKeywords(BaseModel):
@@ -32,8 +35,8 @@ class RedditPost(BaseModel):
  
 
 class KeywordResult(BaseModel):
-    keyword: List[RedditPost]
+    posts: List[RedditPost]
 
 class RedditSearchResult(BaseModel):
-    subreddit: Dict[str, KeywordResult]
+    result: Dict[str, Dict[str, KeywordResult]]
 

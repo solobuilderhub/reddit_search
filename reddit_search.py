@@ -7,7 +7,7 @@ class RedditSearch:
 
     def __init__(self, subreddit_name: str):
         self.subreddit_name = subreddit_name
-        self.url = f"https://www.reddit.com/r/{self.subreddit_name}/new.json"
+        self.url = f"https://www.reddit.com/{self.subreddit_name}/new.json"
 
     async def convert_utc_to_datetime(self, utc: int) -> datetime:
         return datetime.fromtimestamp(utc, tz=timezone.utc)
@@ -15,7 +15,7 @@ class RedditSearch:
     async def validate_post_time(self, utc:int) -> bool:
         post_time = await self.convert_utc_to_datetime(utc)
         current_time = datetime.now(timezone.utc)
-        return current_time - post_time <= timedelta(hours=1)
+        return current_time - post_time <= timedelta(hours=48)
 
     async def search(self):
         async with aiohttp.ClientSession() as session:
@@ -26,6 +26,7 @@ class RedditSearch:
                         await asyncio.sleep(5)  # Wait for 5 second before retrying
                         continue
                     data = await response.json()
+                    # print(data)
                     posts = [
                         RedditPost
                         (
