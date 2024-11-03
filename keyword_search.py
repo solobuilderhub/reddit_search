@@ -15,6 +15,7 @@ class KeywordSearch:
         self._A.make_automaton()
 
     def search(self) -> RedditSearchResult:
+        found_post_ids = {}
         search_res = {self._subreddit: {}}
         for post in self._posts:
             for end_index, (idx, keyword) in self._A.iter(post.text):
@@ -28,7 +29,9 @@ class KeywordSearch:
                     post_id=post.post_id,
                     created_utc=post.created_utc
                 )
-                search_res[self._subreddit][keyword].posts.append(post_detail)
+                if post.post_id not in found_post_ids:
+                    search_res[self._subreddit][keyword].posts.append(post_detail)
+                    found_post_ids[post.post_id] = True
         return RedditSearchResult(result=search_res)
 
 # {
@@ -42,30 +45,30 @@ class KeywordSearch:
 #     }
 # }
 
-# Example usage
-keywords = ["keyword1", "keyword2", "keyword3"]
-posts = [
-    RedditPost(
-        title="title",
-        url="url",
-        subreddit="r/fastapi",
-        text="keyword1 keyword3",
-        post_id="post_id",
-        created_utc=1694592693
-    ),
-    RedditPost(
-        title="title",
-        url="url",
-        subreddit="r/fastapi",
-        text="keyword1",
-        post_id="post_id",
-        created_utc=1694592693
-    ),
-]
+# # Example usage
+# keywords = ["keyword1", "keyword2", "keyword3"]
+# posts = [
+#     RedditPost(
+#         title="title",
+#         url="url",
+#         subreddit="r/fastapi",
+#         text="keyword1 keyword3",
+#         post_id="post_id",
+#         created_utc=1694592693
+#     ),
+#     RedditPost(
+#         title="title",
+#         url="url",
+#         subreddit="r/fastapi",
+#         text="keyword1",
+#         post_id="post_id",
+#         created_utc=1694592693
+#     ),
+# ]
 
-keywords = ["keyword1", "keyword2", "keyword3"]
-searcher = KeywordSearch(keywords, posts, "r/fastapi")
-result = searcher.search()
+# keywords = ["keyword1", "keyword2", "keyword3"]
+# searcher = KeywordSearch(keywords, posts, "r/fastapi")
+# result = searcher.search()
 
 
 # print("*********************")

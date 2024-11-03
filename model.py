@@ -38,6 +38,13 @@ class KeywordResult(BaseModel):
 class RedditSearchResult(BaseModel):
     result: Dict[str, Dict[str, KeywordResult]]
 
+class EmailRedditPost(BaseModel):
+    url: str
+    text: str
+    title: str
+    keyword: str
+    subreddit: str
+
 class SendEmail(BaseModel):
     email: EmailStr
-    posts: List[RedditPost]
+    posts: List[EmailRedditPost]
