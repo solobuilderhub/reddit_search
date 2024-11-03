@@ -32,7 +32,7 @@ class RedditSearch:
                         (
                             title=post["data"]["title"],
                             url=post["data"]["url"],
-                            subreddit=f"r/{post["data"]["subreddit"]}",
+                            subreddit=self.subreddit_name,
                             text=post["data"]["selftext"],
                             post_id=post["data"]["id"],
                             created_utc=await self.convert_utc_to_datetime(post["data"]["created_utc"])
