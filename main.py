@@ -4,8 +4,13 @@ from reddit_search import RedditSearch
 from keyword_search import KeywordSearch
 from model import EmailRedditPost, SendEmail
 from email_service import EmailService
+from apscheduler.schedulers.background import BackgroundScheduler
+from datetime import datetime
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+import asyncio
 
 app = FastAPI()
+scheduler = AsyncIOScheduler()
 
 
 @app.get("/")
@@ -57,6 +62,15 @@ async def read_root():
 
     print("Script Run Successfully")
     return {"msg": "Script Run Successfully"}
+
+async def call_api():
+    await read_root()
+    print("Time is ---> ", datetime.now())
+
+scheduler.add_job(call_api, 'interval', hours=2)
+scheduler.start()
+
+
 
 
 # {

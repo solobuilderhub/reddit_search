@@ -15,7 +15,7 @@ class RedditSearch:
     async def validate_post_time(self, utc:int) -> bool:
         post_time = await self.convert_utc_to_datetime(utc)
         current_time = datetime.now(timezone.utc)
-        return current_time - post_time <= timedelta(hours=48)
+        return current_time - post_time <= timedelta(hours=2)
 
     async def search(self):
         async with aiohttp.ClientSession() as session:
@@ -46,13 +46,13 @@ class RedditSearch:
 
 
 
-async def main():
-    for i in range(0, 20):
-        reddit_search = RedditSearch("indiehackers")
-        posts = await reddit_search.search()
-        print(posts)
-        print(i)
-        print("=====================================")
+# async def main():
+#     for i in range(0, 20):
+#         reddit_search = RedditSearch("indiehackers")
+#         posts = await reddit_search.search()
+#         print(posts)
+#         print(i)
+#         print("=====================================")
 
-if __name__ == "__main__":
-    asyncio.run(main())
+# if __name__ == "__main__":
+#     asyncio.run(main())
