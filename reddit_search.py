@@ -20,7 +20,8 @@ class RedditSearch:
     async def search(self):
         async with aiohttp.ClientSession() as session:
             while True:
-                async with session.get(self.url) as response:
+                headers = {'User-Agent': 'RedditSearch/0.0.1'}
+                async with session.get(self.url, headers=headers) as response:
                     if response.status == 429:
                         print("Rate limited. Retrying in 5 seconds")
                         await asyncio.sleep(5)  # Wait for 5 second before retrying
