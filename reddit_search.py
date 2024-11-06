@@ -20,7 +20,7 @@ class RedditSearch:
     async def search(self):
         async with aiohttp.ClientSession() as session:
             while True:
-                headers = {'User-Agent': 'RedditSearch/0.0.1'}
+                headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
                 async with session.get(self.url, headers=headers) as response:
                     if response.status == 429:
                         print("Rate limited. Retrying in 5 seconds")
