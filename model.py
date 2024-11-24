@@ -10,6 +10,7 @@ class Subreddit(BaseModel):
     subreddit_name: str
     keyword: List[str]
 
+
 class SubredditKeywords(BaseModel):
     subreddit_name: str
     keywords: List[str]
@@ -24,6 +25,7 @@ class SubredditEmailKeywords(BaseModel):
     subreddit_name: str
     individual_subreddits: List[IndividualSubredditKeywords]
 
+
 class RedditPost(BaseModel):
     title: str
     url: str
@@ -32,11 +34,14 @@ class RedditPost(BaseModel):
     post_id: str
     created_utc: datetime
  
+
 class KeywordResult(BaseModel):
     posts: List[RedditPost]
 
+
 class RedditSearchResult(BaseModel):
     result: Dict[str, Dict[str, KeywordResult]]
+
 
 class EmailRedditPost(BaseModel):
     url: str
@@ -44,6 +49,7 @@ class EmailRedditPost(BaseModel):
     title: str
     keyword: str
     subreddit: str
+
 
 class SendEmail(BaseModel):
     email: EmailStr

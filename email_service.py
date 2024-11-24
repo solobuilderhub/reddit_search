@@ -34,8 +34,11 @@ class EmailService:
         return params
     
     def send_email(self):
-        params = self.build_params()
-        email = resend.Emails.send(params)
+        try:
+            params = self.build_params()
+            email = resend.Emails.send(params)
+        except Exception as e:
+            raise e
     
 
 

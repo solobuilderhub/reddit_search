@@ -52,22 +52,26 @@ async def read_root():
                     print(f"Keyword {keys} not found in subreddit {subreddit_keywords.subreddit_name}")
 
 
+    try:
     # now send email to all the emails after processing the model
-    for email, posts in email_post.items():
-        print(f"Sending email to {email} with posts {posts}")
-        send_email_model = SendEmail(email=email, posts=posts)
-        # Send email to email
-        email_service = EmailService(send_email_model)
-        response = email_service.send_email()
+        for email, posts in email_post.items():
+            print(f"Sending email to {email} with posts {posts}")
+            send_email_model = SendEmail(email=email, posts=posts)
+            # Send email to email
+            email_service = EmailService(send_email_model)
+            response = email_service.send_email()
+            
+        print("Script Run Successfully")
+        return {"msg": "Script Run Successfully"}
+    except Exception as e:
+        print("Error sending email. Error: ", e)
 
-    print("Script Run Successfully")
-    return {"msg": "Script Run Successfully"}
 
 async def call_api():
     await read_root()
     print("Time is ---> ", datetime.now())
 
-scheduler.add_job(call_api, 'interval', hours=2)
+scheduler.add_job(call_api, 'interval', hours=6)
 scheduler.start()
 
 
