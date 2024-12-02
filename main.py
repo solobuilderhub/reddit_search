@@ -71,7 +71,7 @@ async def call_api():
     await read_root()
     print("Time is ---> ", datetime.now())
 
-scheduler.add_job(call_api, 'interval', hours=6)
+scheduler.add_job(call_api, 'interval', hours=12)
 scheduler.start()
 
 

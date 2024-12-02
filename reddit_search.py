@@ -38,7 +38,7 @@ class RedditSearch:
             cursor = None
             time = 0
             while True:
-                if time == 3:
+                if time == 2:
                     print("Reached max time limit")
                     return all_posts
             
@@ -98,5 +98,5 @@ class RedditSearch:
     #     print(i)
     #     print("=====================================")
 
-if __name__ == "__main__":
-    asyncio.run(main())
+# if __name__ == "__main__":
+#     asyncio.run(main())
